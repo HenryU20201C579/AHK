@@ -4,7 +4,7 @@ Process, Priority, , High
 ; SCRIPTS PARA EDITAR MAS FACIL AHK
 ;----------------------------------------------------------------------------------------------------
 Tab Up:: sendinput {Tab}
-Alt:: sendinput  { }
+Alt:: sendinput {}
 RAlt:: sendinput { }
 Appskey:: sendinput  { }
 ::comentarahk::
@@ -206,6 +206,32 @@ return
 ;----------------------------------------------------------------------------------------------------
 ; CAPA CAPSLOCK
 ;----------------------------------------------------------------------------------------------------
+
+var:= false
+CapsLock::
+var:= not(var)
+ToolTipFont("s20","Showcard Gothic")
+ToolTipColor("Red", "White")
+
+if (var)
+{
+    SetCapsLockState, on
+    ToolTip, CAPSLOCK ON, 10, 10
+    SetTimer, RemoveToolTip, 99999999999999999999
+    return
+}
+else
+{
+    SetCapsLockState, off    
+    ToolTip, CAPSLOCK OFF, 10, 10
+    SetTimer, RemoveToolTip, 1000
+    return
+}
+RemoveToolTip:
+SetTimer, RemoveToolTip, off
+ToolTip
+return
+
 Capslock & e::
 loop 10 
 {
@@ -349,34 +375,10 @@ return
 ; EXTRAS
 ;----------------------------------------------------------------------------------------------------
 
-var:= false
-Ins::  
-var:= not(var)
-ToolTipFont("s20","Showcard Gothic")
-ToolTipColor("Red", "White")
-
-SoundSet, +1, MASTER, mute,3
-SoundGet, master_mute, , mute, 3
-if (var)
-{
-    ToolTip, Mute %master_mute%, 0, 0
-    SetTimer, RemoveToolTip, 99999999999999999999
-    return
-}
-else
-{   
-    ToolTip, Mute %master_mute%, 0, 0
-    SetTimer, RemoveToolTip, 1000
-    return
-}
-RemoveToolTip:
-SetTimer, RemoveToolTip, off
-ToolTip
-return
-
 ::lorem ipsum:: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero harum natus ducimus cumque aliquid temporibus, fugiat quia quae maiores quam exercitationem minima aspernatur ut aperiam porro. Asperiores cupiditate vel provident?
 ::link meet:: https://meet.google.com/hzs-umxo-mad
 
 ;----------------------------------------------------------------------------------------------------
 ; SECCION PRUEBA
 ;----------------------------------------------------------------------------------------------------
+
