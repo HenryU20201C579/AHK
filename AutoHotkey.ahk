@@ -416,6 +416,8 @@ return
 ;----------------------------------------------------------------------------------------------------
 ; EXTRAS
 ;----------------------------------------------------------------------------------------------------
+ScrollLock:: WinSet, AlwaysOnTop, , A
+return
 
 f1:: 
 VarSetCapacity(powerstatus, 1+1+1+1+4+4)
@@ -429,12 +431,12 @@ FormatTime, time, A_now, dddd d-MMMM(MM)-yy `nhh:mm tt
 if (acLineStatus)
     ToolTipColor("Green", "White")
 else
-    ToolTipColor("White", "")
+    ToolTipColor("White", "Black")
 
 output=Bateria: %batteryLifePercent%`%  `n%time%
 ToolTipFont("s20","Times New Roman")
 ToolTip, %output%, 10, 10
-SetTimer, RemoveToolTip, 10000
+SetTimer, RemoveToolTip, 15000
 
 ReadInteger( p_address, p_offset, p_size, p_hex=true )
 {
