@@ -142,13 +142,13 @@ k:: sendinput {5}
 l:: sendinput {6}
 m:: sendinput {1}
 ,:: sendinput {2}
-~.::
+.::
     KeyWait, .			; wait for z to be released
     KeyWait, ., D T0.2		; and pressed again within 0.2 seconds
     if ErrorLevel 			; timed-out (only a single press)
-        sendinput {bs}{3}
+        sendinput {3}
     Else
-        sendinput {bs}.
+        sendinput .
 Return
 space::sendinput {0}
 p:: sendinput {NumpadSub}
