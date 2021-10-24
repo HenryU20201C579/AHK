@@ -144,7 +144,7 @@ m:: sendinput {1}
 ,:: sendinput {2}
 .::
     KeyWait, .			; wait for z to be released
-    KeyWait, ., D T0.2		; and pressed again within 0.2 seconds
+    KeyWait, ., D T0.07		; and pressed again within 0.2 seconds
     if ErrorLevel 			; timed-out (only a single press)
         sendinput {3}
     Else
@@ -452,6 +452,17 @@ ReadInteger( p_address, p_offset, p_size, p_hex=true )
   return, value
 }
 return
+
+
+~LWin::
+    KeyWait, LWin			; wait for LWin to be released
+    KeyWait, LWin, D T0.2		; and pressed again within 0.2 seconds
+    if ErrorLevel 			; timed-out (only a single press)
+        Send {}
+    Else
+        sendinput {LWinDown}{g}{LWinUp}
+Return
+
 
 ::lorem ipsum:: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero harum natus ducimus cumque aliquid temporibus, fugiat quia quae maiores quam exercitationem minima aspernatur ut aperiam porro. Asperiores cupiditate vel provident?
 ::link meet:: https://meet.google.com/hzs-umxo-mad
