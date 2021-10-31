@@ -412,6 +412,10 @@ return
 <^>!+d:: send {ShiftDown}{AltDown}{Down}{AltUp}{ShiftUp}
 <^>!+s:: send {ShiftDown}{AltDown}{Left}{AltUp}{ShiftUp}
 <^>!+f:: send {ShiftDown}{AltDown}{Right}{altup{ShiftUp}
+<+>+f:: send {ShiftDown}{Right}{ShiftUp}
+<+>+s:: send {ShiftDown}{Left}{ShiftUp}
+<+>+e:: send {ShiftDown}{Up}{ShiftUp}
+<+>+d:: send {ShiftDown}{Down}{ShiftUp}
 return
 ;----------------------------------------------------------------------------------------------------
 ; EXTRAS
@@ -456,7 +460,7 @@ return
 
 ~LWin::
     KeyWait, LWin			; wait for LWin to be released
-    KeyWait, LWin, D T0.2		; and pressed again within 0.2 seconds
+    KeyWait, LWin, D T0.1	; and pressed again within 0.1 seconds
     if ErrorLevel 			; timed-out (only a single press)
         Send {}
     Else
