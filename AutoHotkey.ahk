@@ -1,5 +1,6 @@
 #SingleInstance ignore
 Process, Priority, , High
+stage := 1
 ;----------------------------------------------------------------------------------------------------
 ; SCRIPTS PARA EDITAR MAS FACIL AHK
 ;----------------------------------------------------------------------------------------------------
@@ -133,29 +134,6 @@ convertHours(numero)
 !,:: sendinput {2}
 !.:: sendinput {3}
 !space::sendinput {0}
-#IfWinActive Calculadora, Calculadora
-u:: sendinput {7} 
-i:: sendinput {8}
-o:: sendinput {9}
-j:: sendinput {4}
-k:: sendinput {5}
-l:: sendinput {6}
-m:: sendinput {1}
-,:: sendinput {2}
-.::
-    KeyWait, .			; wait for z to be released
-    KeyWait, ., D T0.07		; and pressed again within 0.2 seconds
-    if ErrorLevel 			; timed-out (only a single press)
-        sendinput {3}
-    Else
-        sendinput .
-Return
-space::sendinput {0}
-p:: sendinput {NumpadSub}
-`;:: sendinput {NumpadAdd}
-h:: sendinput {NumpadMult}
-n:: sendinput {=}
-#IfWinActive
 ;----------------------------------------------------------------------------------------------------
 ; GUARDADO DEL SCRIPT
 ;----------------------------------------------------------------------------------------------------
@@ -195,7 +173,7 @@ return
 <^>!p:: sendinput {_}
 <^>!f:: sendinput {!}
 <^>!g:: sendinput ¡{Left}{BS}{Right}
-<^>!q:: sendinput °{Left}{BS}{Right}
+<^>!q:: sendinput ° ;{Left}{BS}{Right}
 <^>!h:: sendinput {&}
 <^>!s:: sendinput {(}
 <^>!d:: sendinput {)}
@@ -204,10 +182,10 @@ return
 <^>!c:: sendinput {]}
 <^>!CapsLock:: sendinput {~}{Space}
 <^>!r:: sendinput {|}
+
 ;----------------------------------------------------------------------------------------------------
 ; CAPA CAPSLOCK
 ;----------------------------------------------------------------------------------------------------
-
 var:= false
 CapsLock::
 var:= not(var)
@@ -424,7 +402,7 @@ ScrollLock:: WinSet, AlwaysOnTop, , A
 return
 
 f1:: 
-VarSetCapacity(powerstatus, 1+1+1+1+4+4)
+VarSetCapacity(powerstatus, 4)
 success := DllCall("kernel32.dll\GetSystemPowerStatus", "uint", &powerstatus)
 
 acLineStatus:=ReadInteger(&powerstatus,0,1,false)
@@ -475,4 +453,60 @@ Return
 ; SECCION PRUEBA
 ;----------------------------------------------------------------------------------------------------
 
+f4::
+if (stage = 2) 
+    stage = 0
+stage += 1 
+if (stage = 1)
+{
+    ToolTipFont("s20","Showcard Gothic")
+    ToolTipColor("White", "BLUE")
+    ToolTip , MODO 1, 10, 10, 1
 
+    ToolTipColor("Black", "gray")
+    ToolTip , MODO 2, 115, 10, 2
+
+    Sleep 300
+    ToolTip ,,,, 1
+    ToolTip ,,,, 2
+    ToolTip ,,,, 3
+}
+else if (stage = 2)
+{
+    ToolTipFont("s20","Showcard Gothic")
+    ToolTipColor("Black", "gray")
+    ToolTip , MODO 1, 10, 10, 1
+
+    ToolTipColor("White", "BLUE")
+    ToolTip , MODO 2, 115, 10, 2
+
+    Sleep 300
+    ToolTip ,,,, 1
+    ToolTip ,,,, 2
+    ToolTip ,,,, 3
+}
+return
+
+#If (stage = 2)
+u:: sendinput {7} 
+i:: sendinput {8}
+o:: sendinput {9}
+j:: sendinput {4}
+k:: sendinput {5}
+l:: sendinput {6}
+m:: sendinput {1}
+,:: sendinput {2}
+.::
+    KeyWait, .			; wait for z to be released
+    KeyWait, ., D T0.07		; and pressed again within 0.2 seconds
+    if ErrorLevel 			; timed-out (only a single press)
+        sendinput {3}
+    Else
+        sendinput .
+Return
+space::sendinput {0}
+p:: sendinput {NumpadSub}
+`;:: sendinput {NumpadAdd}
+h:: sendinput {NumpadMult}
+n:: sendinput {=}
+return
