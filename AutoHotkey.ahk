@@ -313,6 +313,15 @@ else
     sendinput {f4}
 return
 
+f13::
+WinGetActiveTitle, activewin
+Clipboard =
+SendInput, ^c
+ClipWait
+transtext := StrReplace(Clipboard, " ", "%20")
+transurl := "https://translate.google.com/#view=home&op=translate&sl=en&tl=es&text=" . transtext
+Run, % transurl
+
 ;----------------------------------------------------------------------------------------------------
 ; CAPA APPSKEY
 ;----------------------------------------------------------------------------------------------------
