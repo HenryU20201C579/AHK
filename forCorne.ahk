@@ -48,3 +48,6 @@ if GetKeyState("Control", "P")
 else 
     send {WheelUp}
 return
+
+ScrollLock:: WinSet, AlwaysOnTop, , A
+return
