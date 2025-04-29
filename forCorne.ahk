@@ -6,6 +6,37 @@ Appskey & w::send {Click}
 ;Appskey & q::send {WheelUp}
 ;Appskey & a::send {WheelDown}
 
+#SingleInstance force
+#Persistent
+
+currentMonitor := 1
+
+Appskey & g::  ; Ctrl + Alt + T
+SysGet, monitorCount, MonitorCount
+
+if (monitorCount < 1)
+    return
+
+if (currentMonitor > monitorCount)
+    currentMonitor := 1
+
+; obtener dimensiones del monitor
+SysGet, mon, Monitor, %currentMonitor%
+
+; monLeft := monLeft
+; monTop := monTop
+; monRight := monRight
+; monBottom := monBottom
+
+centerX := (monLeft + monRight) // 2
+centerY := (monTop + monBottom) // 2
+
+MouseMove, %centerX%, %centerY%, 0
+
+currentMonitor++
+return
+
+
 
 Appskey & e::
 if GetKeyState("Alt", "P") 
@@ -109,3 +140,4 @@ WinGet, winID, ID, A
 GetMonitorArea(winID, left, top, right, bottom)
 ResizeWindow(winID, left + (right - left)//2, top, (right - left)//2, bottom - top)
 return
+
